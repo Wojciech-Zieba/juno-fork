@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . .
 
 # Build the project
-RUN make juno
+RUN  go build -o build/juno ./cmd/juno/   
 
 # Compress the executable with UPX
 RUN upx /app/build/juno
