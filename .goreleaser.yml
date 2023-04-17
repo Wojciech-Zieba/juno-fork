@@ -1,33 +1,47 @@
 project_name: juno
-
 builds:
-  - id: "juno"
-    main: "./cmd/juno/juno.go"
-    binary: "juno"
+  - env:
+      - CGO_ENABLED=0
     goos:
       - linux
       - darwin
-      - windows
     goarch:
       - amd64
-      - arm64
+    main: ./cmd/juno/juno.go
+    ldflags:
+      - -s -w -X main.Version={{.Version}}
+    binary: juno
 
-archives:
-  - format_overrides:
-      - goos: windows
-        format: zip
+archive:
+  format_overrides:
+    - goos: windows
+      format: zip
+  files:
+    - LICENSE
+    - README.md
 
-changelog:
-  filters:
-    exclude:
-      - '^docs:'
-      - '^test:'
+checksum:
+  name_template: 'checksums.txt'
+
+snapshots:
+  name_template: "{{ .Tag }}-next"
 
 dockers:
   - image_templates:
-      - juno-fork
+      - "nethermindeth/juno:latest"
+      - "nethermindeth/juno:{{ .Tag }}"
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.Commit}}"
+      - "--label=org.opencontainers.image.source={{.RepoURL}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--build-arg=VERSION={{.Version}}"
 
 release:
   github:
     owner: wojciechos
     name: Wojciech-Zieba/juno-fork
+  draft: true
+  prerelease: auto
