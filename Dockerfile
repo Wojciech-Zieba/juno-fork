@@ -1,24 +1,7 @@
-# Stage 1: Build golang dependencies and binaries
-FROM golang:1.19-alpine AS build
-
-# Install Alpine Dependencies
-RUN apk update && \
-    apk add build-base clang upx
-
-WORKDIR /app
-
-# Copy source code
-COPY . .
-
-# Build the project
-RUN  go build -o build/juno ./cmd/juno/   
-
-# Compress the executable with UPX
-RUN upx /app/build/juno
-
-# Stage 2: Build Docker image
+# Choose an appropriate base image for your runtime
 FROM alpine:3.14 AS runtime
 
-COPY --from=build /app/build/juno /usr/local/bin/
+# Copy the binary directly from the build context
+COPY juno /usr/local/bin/
 
 ENTRYPOINT ["juno"]
