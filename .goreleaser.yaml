@@ -16,7 +16,6 @@ builds:
 dockers:
   - image_templates: ["nethermind/juno:{{ .Version }}"]
     dockerfile: Dockerfile
-    use_buildx: true
     build_flag_templates:
       - --label=org.opencontainers.image.title={{ .ProjectName }}
       - --label=org.opencontainers.image.description={{ .ProjectName }}
