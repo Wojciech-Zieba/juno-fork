@@ -14,7 +14,8 @@ builds:
       - amd64
       - arm64
 dockers:
-- image_templates: ["nethermind/juno:{{ .Version }}"]
+- context: .
+  image_templates: ["nethermind/juno:{{ .Version }}"]
   dockerfile: Dockerfile
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
