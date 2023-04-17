@@ -2,7 +2,7 @@ project_name: juno
 
 builds:
   - id: "juno"
-    main: "./cmd/juno/main.go"
+    main: "./cmd/juno/juno.go"
     binary: "juno"
     goos:
       - linux
