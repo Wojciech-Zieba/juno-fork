@@ -16,7 +16,12 @@ builds:
       - arm64
 dockers:
   - image_templates: ["nethermind/juno:{{ .Version }}"]
-    dockerfile: Dockerfile
+    dockerfile: goreleaser.Dockerfile
+    build_flag_templates:
+      - --label=org.opencontainers.image.created={{.Date}}
+      - --label=org.opencontainers.image.title={{.ProjectName}}
+      - --label=org.opencontainers.image.revision={{.FullCommit}}
+      - --label=org.opencontainers.image.version={{.Version}}
  
 archives:
   - format: tar.gz
