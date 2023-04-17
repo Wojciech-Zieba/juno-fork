@@ -1,0 +1,33 @@
+project_name: juno
+
+builds:
+  - id: "juno"
+    main: "./cmd/juno/main.go"
+    binary: "juno"
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - format_overrides:
+      - goos: windows
+        format: zip
+
+changelog:
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+dockers:
+  - image_templates:
+      - juno-fork
+
+release:
+  github:
+    owner: wojciechos
+    name: Wojciech-Zieba/juno-fork
