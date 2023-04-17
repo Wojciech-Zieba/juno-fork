@@ -16,16 +16,17 @@ builds:
 
 dockers:
   - image_templates:
-    - "nethermind/juno:{{ .Tag }}"
-    - "nethermind/juno:latest"
-    - "nethermindeth/juno:{{ .Tag }}"
-    - "nethermindeth/juno:latest"
-  - build_flag_templates:
-    - "--pull"
-    - "--label=org.opencontainers.image.created={{.Date}}"
-    - "--label=org.opencontainers.image.title={{.ProjectName}}"
-    - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-    - "--label=org.opencontainers.image.version={{.Version}}"
+      - "nethermind/juno:{{ .Tag }}"
+      - "nethermind/juno:latest"
+      - "nethermindeth/juno:{{ .Tag }}"
+      - "nethermindeth/juno:latest"
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    dockerfile: Dockerfile
     
 archives:
   - format: tar.gz
