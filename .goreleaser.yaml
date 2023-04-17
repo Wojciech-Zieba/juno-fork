@@ -15,7 +15,7 @@ builds:
       - arm64
 dockers:
 - image_templates: ["nethermind/juno:{{ .Version }}"]
-  dockerfile: ./Dockerfile
+  dockerfile: Dockerfile.goreleaser
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
