@@ -31,27 +31,70 @@ builds:
       - amd64
       - arm64
 dockers:
-- image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}"
-  - "wojciechos/juno-fork:latest"
-  use: buildx
-  dockerfile: goreleaser.Dockerfile
-  build_flag_templates:
-  - "--platform=linux/amd64"
-- image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}"
-  - "wojciechos/juno-fork:latest"
-  use: buildx
-  goarch: arm64
-  dockerfile: goreleaser.Dockerfile
-  build_flag_templates:
-  - "--platform=linux/arm64/v8"
+  - use: buildx
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "wojciechos/juno-fork:{{ .Version }}-amd64"
+      - "wojciechos/juno-fork:latest-amd64"
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "wojciechos/juno-fork:{{ .Version }}-arm64v8"
+      - "wojciechos/juno-fork:latest-arm64v8"
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
+    goos: linux
+    goarch: arm
+    goarm: 6
+    image_templates:
+      - "wojciechos/juno-fork:{{ .Version }}-armv6"
+      - "wojciechos/juno-fork:latest-armv6"
+    build_flag_templates:
+      - "--platform=linux/arm/v6"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
+    goos: linux
+    goarch: arm
+    goarm: 7
+    image_templates:
+      - "wojciechos/juno-fork:{{ .Version }}-armv7"
+      - "wojciechos/juno-fork:latest-armv7"
+    build_flag_templates:
+      - "--platform=linux/arm/v7"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
 docker_manifests:
-- name_template: "wojciechos/juno-fork:v{{ .Version }}"
-  image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}-amd64"
-  - "wojciechos/juno-fork:v{{ .Version }}-arm64v8"
- 
+  - name_template: wojciechos/juno-fork:{{ .Version }}
+    image_templates:
+      - wojciechos/juno-fork:{{ .Version }}-amd64
+      - wojciechos/juno-fork:{{ .Version }}-arm64v8
+      - wojciechos/juno-fork:{{ .Version }}-armv6
+      - wojciechos/juno-fork:{{ .Version }}-armv7
+  - name_template: wojciechos/juno-fork:latest
+    image_templates:
+      - wojciechos/juno-fork:latest-amd64
+      - wojciechos/juno-fork:latest-arm64v8
+      - wojciechos/juno-fork:latest-armv6
+      - wojciechos/juno-fork:latest-armv7
+      
 archives:
   - format: tar.gz
     name_template: >-
