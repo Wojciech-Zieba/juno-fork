@@ -47,6 +47,7 @@ dockers:
   - use: buildx
     goos: linux
     goarch: arm64
+    dockerfile: goreleaser.Dockerfile
     image_templates:
       - "wojciechos/juno-fork:{{ .Version }}"
       - "wojciechos/juno-fork:latest"
