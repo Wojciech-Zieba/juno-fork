@@ -60,6 +60,7 @@ dockers:
     goos: linux
     goarch: arm
     goarm: 6
+    dockerfile: goreleaser.Dockerfile
     image_templates:
       - "wojciechos/juno-fork:{{ .Version }}-armv6"
       - "wojciechos/juno-fork:latest-armv6"
