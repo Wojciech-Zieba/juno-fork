@@ -9,11 +9,15 @@ release:
   mode: append
   header: |
     ## Some title ({{ .Date }})
+
     Welcome to this new release!
+
   footer: |
     ## Thanks!
+
     Those were the changes on {{ .Tag }}!
-  name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
+
+  name_template: "{{.ProjectName}} v{{.Version}}"
 
 builds:
   - env:
@@ -32,7 +36,7 @@ dockers:
     goarch: amd64
     dockerfile: goreleaser.Dockerfile
     image_templates:
-      - "wojciechos/juno-fork-{{.Version}}-temp:amd64"
+      - "wojciechos/juno-fork-v{{.Version}}:amd64"
     build_flag_templates:
       - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -44,7 +48,7 @@ dockers:
     goarch: arm64
     dockerfile: goreleaser.Dockerfile
     image_templates:
-      - "wojciechos/juno-fork-{{.Version}}-temp:arm64"
+      - "wojciechos/juno-fork-v{{.Version}}:arm64"
     build_flag_templates:
       - "--platform=linux/arm64/v8"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -53,15 +57,15 @@ dockers:
       - "--label=org.opencontainers.image.version={{.Version}}"
 
 docker_manifests:
-  - name_template: nethermind/juno:{{ .Version }}
+  - name_template: wojciechos/juno-fork:{{ .Version }}
     image_templates:
-      - wojciechos/juno-fork-{{.Version}}-temp:amd64
-      - wojciechos/juno-fork-{{.Version}}-temp:arm64
-  - name_template: wojciechos/juno-fork-fork:latest
+      - wojciechos/juno-fork-v{{.Version}}:amd64
+      - wojciechos/juno-fork-v{{.Version}}:arm64
+  - name_template: wojciechos/juno-fork:latest
     image_templates:
-      - wojciechos/juno-fork-{{.Version}}-temp:amd64
-      - wojciechos/juno-fork-{{.Version}}-temp:arm64
-
+      - wojciechos/juno-fork-v{{.Version}}:amd64
+      - wojciechos/juno-fork-v{{.Version}}:arm64
+      
 archives:
   - format: tar.gz
     name_template: >-
