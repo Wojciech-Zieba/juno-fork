@@ -9,14 +9,10 @@ release:
   mode: append
   header: |
     ## Some title ({{ .Date }})
-
     Welcome to this new release!
-
   footer: |
     ## Thanks!
-
     Those were the changes on {{ .Tag }}!
-
   name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
 
 builds:
@@ -57,16 +53,15 @@ dockers:
       - "--label=org.opencontainers.image.version={{.Version}}"
 
 docker_manifests:
-  - name_template: wojciechos/juno-fork:{{ .Version }}
+  - name_template: nethermind/juno:{{ .Version }}
     image_templates:
       - wojciechos/juno-fork-{{.Version}}-temp:amd64
       - wojciechos/juno-fork-{{.Version}}-temp:arm64
-  - name_template: wojciechos/juno-fork:latest
+  - name_template: wojciechos/juno-fork-fork:latest
     image_templates:
       - wojciechos/juno-fork-{{.Version}}-temp:amd64
       - wojciechos/juno-fork-{{.Version}}-temp:arm64
 
-      
 archives:
   - format: tar.gz
     name_template: >-
@@ -85,7 +80,3 @@ snapshot:
   name_template: "{{ incpatch .Version }}-next"
 changelog:
   sort: asc
-  filters:
-    exclude:
-      - '^docs:'
-      - '^test:'
