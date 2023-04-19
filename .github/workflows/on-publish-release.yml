@@ -24,8 +24,11 @@ jobs:
     - name: Retag and push Docker images
       run: |
         VERSION_TAG=${{ github.event.release.tag_name }}
-        docker pull wojciechos/juno-fork:${VERSION_TAG}-draft
-        docker tag wojciechos/juno-fork:${VERSION_TAG}-draft wojciechos/juno-fork-official:${VERSION_TAG}
-        docker push wojciechos/juno-fork-official:${VERSION_TAG}
+        DRAFT_IMAGE="wojciechos/juno-fork:${VERSION_TAG}-draft"
+        OFFICIAL_IMAGE="wojciechos/juno-fork-official:${VERSION_TAG}"
+        docker buildx imagetools create -t ${OFFICIAL_IMAGE} ${DRAFT_IMAGE}
+        docker buildx imagetools push ${OFFICIAL_IMAGE}
+
+
 
 
