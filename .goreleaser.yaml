@@ -57,7 +57,7 @@ dockers:
       - "--label=org.opencontainers.image.version={{.Version}}"
 
 docker_manifests:
-  - name_template: wojciechos/juno-fork:{{ .Version }}
+  - name_template: wojciechos/juno-fork:v{{ .Version }}
     image_templates:
       - wojciechos/juno-fork:amd64
       - wojciechos/juno-fork:arm64
