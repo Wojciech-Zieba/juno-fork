@@ -36,7 +36,7 @@ dockers:
     goarch: amd64
     dockerfile: goreleaser.Dockerfile
     image_templates:
-      - "wojciechos/juno-fork-v{{.Version}}:amd64"
+      - "wojciechos/juno-fork:v{{.Version}}"
     build_flag_templates:
       - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -48,7 +48,7 @@ dockers:
     goarch: arm64
     dockerfile: goreleaser.Dockerfile
     image_templates:
-      - "wojciechos/juno-fork-v{{.Version}}:arm64"
+      - "wojciechos/juno-fork:v{{.Version}}"
     build_flag_templates:
       - "--platform=linux/arm64/v8"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -59,12 +59,12 @@ dockers:
 docker_manifests:
   - name_template: wojciechos/juno-fork:{{ .Version }}
     image_templates:
-      - wojciechos/juno-fork-v{{.Version}}:amd64
-      - wojciechos/juno-fork-v{{.Version}}:arm64
+      - wojciechos/juno-fork:amd64
+      - wojciechos/juno-fork:arm64
   - name_template: wojciechos/juno-fork:latest
     image_templates:
-      - wojciechos/juno-fork-v{{.Version}}:amd64
-      - wojciechos/juno-fork-v{{.Version}}:arm64
+      - wojciechos/juno-fork:amd64
+      - wojciechos/juno-fork:arm64
       
 archives:
   - format: tar.gz
