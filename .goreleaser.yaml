@@ -38,19 +38,7 @@ dockers:
     image_templates:
       - "wojciechos/juno-fork:v{{.Version}}"
     build_flag_templates:
-      - "--platform=linux/amd64"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-  - use: buildx
-    goos: linux
-    goarch: arm64
-    dockerfile: goreleaser.Dockerfile
-    image_templates:
-      - "wojciechos/juno-fork:v{{.Version}}"
-    build_flag_templates:
-      - "--platform=linux/arm64/v8"
+      - "--platform=linux/amd64,linux/arm64/v8"
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.title={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
@@ -59,12 +47,10 @@ dockers:
 docker_manifests:
   - name_template: wojciechos/juno-fork:v{{ .Version }}
     image_templates:
-      - wojciechos/juno-fork:amd64
-      - wojciechos/juno-fork:arm64
+      - wojciechos/juno-fork:v{{ .Version }}
   - name_template: wojciechos/juno-fork:latest
     image_templates:
-      - wojciechos/juno-fork:amd64
-      - wojciechos/juno-fork:arm64
+      - wojciechos/juno-fork:v{{ .Version }}
       
 archives:
   - format: tar.gz
