@@ -7,17 +7,6 @@ release:
   draft: true
   prerelease: auto
   mode: append
-  header: |
-    ## Some title ({{ .Date }})
-
-    Welcome to this new release!
-
-  footer: |
-    ## Thanks!
-
-    Those were the changes on {{ .Tag }}!
-
-  name_template: "{{.ProjectName}} v{{.Version}}"
 
 builds:
   - env:
@@ -33,13 +22,13 @@ builds:
 
 dockers:
 - image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}-amd64"
+  - "wojciechos/juno-fork:v{{ .Version }}-amd64-draft"
   use: buildx
   dockerfile: goreleaser.Dockerfile
   build_flag_templates:
   - "--platform=linux/amd64"
 - image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}-arm64"
+  - "wojciechos/juno-fork:v{{ .Version }}-arm64-draft"
   use: buildx
   goarch: arm64
   dockerfile: goreleaser.Dockerfile
@@ -47,14 +36,10 @@ dockers:
   - "--platform=linux/arm64/v8"
 
 docker_manifests:
-- name_template: "wojciechos/juno-fork:v{{ .Version }}"
+- name_template: "wojciechos/juno-fork:v{{ .Version }}-draft"
   image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}-amd64"
-  - "wojciechos/juno-fork:v{{ .Version }}-arm64"
-- name_template: "wojciechos/juno-fork:latest"
-  image_templates:
-  - "wojciechos/juno-fork:v{{ .Version }}-amd64"
-  - "wojciechos/juno-fork:v{{ .Version }}-arm64"
+  - "wojciechos/juno-fork:v{{ .Version }}-amd64-draft"
+  - "wojciechos/juno-fork:v{{ .Version }}-arm64-draft"
   
 archives:
   - format: tar.gz
