@@ -30,8 +30,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Install mockgen
-        run: go install github.com/golang/mock/mockgen@v1.6.0
+      # - name: Install mockgen
+        # run: go install github.com/golang/mock/mockgen@v1.6.0
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
