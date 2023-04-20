@@ -1,4 +1,4 @@
-name: Retag Docker Images on Release Publish
+name: publish release
 
 on:
   release:
