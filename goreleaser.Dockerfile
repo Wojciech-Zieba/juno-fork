@@ -1,3 +1,3 @@
-FROM alpine:3.14 AS runtime
+FROM scratch
 COPY juno /juno
 ENTRYPOINT ["/juno"]
